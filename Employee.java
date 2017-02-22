@@ -9,11 +9,13 @@ public class Employee {
     private String name;
     private double salary;
     private Department department;
+    private JobTitle jobTitle;
 
-    public Employee(String name, Department department, double salary) {
+    public Employee(String name, Department department, double salary, JobTitle jobTitle) {
         this.name = name;
         this.salary = salary;
         this.department = department;
+        this.jobTitle = jobTitle;
     }
 
     public String getName() {
@@ -46,7 +48,8 @@ public class Employee {
 
     public void save() {
         int departmentId = this.department.getId();
-        String sql = String.format("INSERT INTO employees (name, department_id, salary) VALUES ('%s', %d, %7.2f);", this.name, departmentId, this.salary);
+        int jobTitleId = this.jobTitle.getId();
+        String sql = String.format("INSERT INTO employees (name, department_id, salary, job_title_id) VALUES ('%s', %d, %7.2f, %d);", this.name, departmentId, this.salary, jobTitleId);
         this.id = SqlRunner.executeUpdate(sql);
         SqlRunner.closeConnection();
     }
@@ -116,11 +119,31 @@ public class Employee {
         }
     }
 
-    public static ResultSet findByName(String searchName) {
+    public static Employee findByName(String searchName) {
         String sql = String.format("SELECT * FROM employees WHERE name = '%s';", searchName);
         ResultSet rs = SqlRunner.executeQuery(sql);
-        SqlRunner.closeConnection();
-        return rs;
+        Employee result = null;
+        try {
+            while (rs.next()) {
+                String name = rs.getString("name");
+                int deptId = rs.getInt("department_id");
+                double salary = rs.getDouble("salary");
+                int jobTitleId = rs.getInt("job_title_id");
+                Department department = Department.getById(deptId);
+                JobTitle jobTitle = JobTitle.getById(jobTitleId);
+                result = new Employee(name, department, salary, jobTitle);
+                return result;
+
+            }
+
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + " : " + e.getMessage());
+            System.exit(0);
+        } finally {
+            SqlRunner.closeConnection();
+        }
+
+
     }
 }
 
