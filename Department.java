@@ -69,7 +69,7 @@ public class Department {
     }
 
     public void update(){
-        String sql = String.format("UPDATE departments SET (title) = ('%s') WHERE departments.id = %d;", this.title, this.id);
+        String sql = String.format("UPDATE departments SET (title) = ('%s') WHERE departments.id = %d;", this.title, this.id    );
         SqlRunner.executeUpdate(sql);
         SqlRunner.closeConnection();
     }
