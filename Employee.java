@@ -93,6 +93,26 @@ public class Employee {
     }
 
     public void getAllDetails(){
-
+        String sql = String.format("SELECT employees.id, employees.name, departments.title, employees.salary FROM employees JOIN departments ON departments.id = employees.department_id WHERE employees.id = %d;", this.id);
+        ResultSet rs = SqlRunner.executeQuery(sql);
+        try{
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String deptTitle = rs.getString("title");
+                Double salary = rs.getDouble("salary");
+                System.out.println(id);
+                System.out.println(name);
+                System.out.println(deptTitle);
+                System.out.println(salary);
+            }
+        }
+        catch (Exception e){
+            System.err.println(e.getClass().getName() + " : " + e.getMessage());
+            System.exit(0);
+        }
+        finally{
+            SqlRunner.closeConnection();
+        }
     }
 }

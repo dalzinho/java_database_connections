@@ -46,5 +46,8 @@ public class Runner {
         employee1.setName("Ivan Vishnevsky");
         employee1.update();
         Employee.showAll();
+
+        employee1.getAllDetails();
+        employee2.getAllDetails();
     }
 }
