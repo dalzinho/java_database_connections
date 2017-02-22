@@ -73,4 +73,10 @@ public class Department {
         SqlRunner.executeUpdate(sql);
         SqlRunner.closeConnection();
     }
+
+    public static ResultSet findByName(String searchName){
+        String sql = String.format("SELECT * FROM departments WHERE title = '%s';", searchName);
+        ResultSet rs = SqlRunner.executeQuery(sql);
+        return rs;
+    }
 }

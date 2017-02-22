@@ -1,5 +1,7 @@
 import java.sql.ResultSet;
 
+import javax.xml.transform.Result;
+
 import db.SqlRunner;
 
 public class Employee {
@@ -73,13 +75,13 @@ public class Employee {
         }
     }
 
-    public static void deleteAll(){
+    public static void deleteAll() {
         String sql = "DELETE FROM employees;";
         SqlRunner.executeUpdate(sql);
         SqlRunner.closeConnection();
     }
 
-    public void deleteInstance(){
+    public void deleteInstance() {
         String sql = String.format("DELETE FROM employees WHERE id = %d;", this.id);
         SqlRunner.executeUpdate(sql);
         SqlRunner.closeConnection();
@@ -92,11 +94,11 @@ public class Employee {
         SqlRunner.closeConnection();
     }
 
-    public void getAllDetails(){
+    public void getAllDetails() {
         String sql = String.format("SELECT employees.id, employees.name, departments.title, employees.salary FROM employees JOIN departments ON departments.id = employees.department_id WHERE employees.id = %d;", this.id);
         ResultSet rs = SqlRunner.executeQuery(sql);
-        try{
-            while(rs.next()){
+        try {
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String deptTitle = rs.getString("title");
@@ -106,13 +108,20 @@ public class Employee {
                 System.out.println(deptTitle);
                 System.out.println(salary);
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.err.println(e.getClass().getName() + " : " + e.getMessage());
             System.exit(0);
-        }
-        finally{
+        } finally {
             SqlRunner.closeConnection();
         }
     }
+
+    public static ResultSet findByName(String searchName) {
+        String sql = String.format("SELECT * FROM employees WHERE name = '%s';", searchName);
+        ResultSet rs = SqlRunner.executeQuery(sql);
+        SqlRunner.closeConnection();
+        return rs;
+    }
 }
+
+

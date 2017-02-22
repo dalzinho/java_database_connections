@@ -49,5 +49,9 @@ public class Runner {
 
         employee1.getAllDetails();
         employee2.getAllDetails();
+
+        System.out.println(Employee.findByName("Ivan Vishnevsky"));
+        System.out.println(Department.findByName("HR"));
+
     }
 }
