@@ -30,16 +30,16 @@ public class Runner {
         job3.save();
         job4.save();
 
-        Employee employee1 = new Employee("Rinat Dasayev", department1, 45000, job1);
-        Employee employee2 = new Employee("Volodymyr Bessonov", department1, 25000, job2);
-        Employee employee3 = new Employee("Vagiz Khidiyatullin", department2, 25000, job3);
-        Employee employee4 = new Employee("Oleg Kuznetsov", department2, 25000, job4);
-        Employee employee5 = new Employee("Anatoliy Demyanenko", department3, 25000, job1);
-        Employee employee6 = new Employee("Vasiliy Rats", department3, 25000, job2);
-        Employee employee7 = new Employee("Sergei Aleinikov", department4, 25000, job3);
-        Employee employee8 = new Employee("Geannady Litovchenko", department4, 25000, job4);
-        Employee employee9 = new Employee("Aleksandr Zavarov", department5, 25000, job1);
-        Employee employee10 = new Employee("Oleg Protasov", department5, 25000, job2);
+        Employee employee1 = new Employee("Rinat Dasayev", 1, 45000, 1);
+        Employee employee2 = new Employee("Volodymyr Bessonov", 2, 25000, 2);
+        Employee employee3 = new Employee("Vagiz Khidiyatullin", 3, 25000, 3);
+        Employee employee4 = new Employee("Oleg Kuznetsov", 4, 25000, 4);
+        Employee employee5 = new Employee("Anatoliy Demyanenko", 5, 25000, 1);
+        Employee employee6 = new Employee("Vasiliy Rats", 1, 25000, 2);
+        Employee employee7 = new Employee("Sergei Aleinikov", 2, 25000, 3);
+        Employee employee8 = new Employee("Geannady Litovchenko", 3, 25000, 4);
+        Employee employee9 = new Employee("Aleksandr Zavarov", 4, 25000, 1);
+        Employee employee10 = new Employee("Oleg Protasov", 5, 25000, 2);
 
         employee1.save();
         employee2.save();
@@ -52,9 +52,11 @@ public class Runner {
         employee9.save();
         employee10.save();
 
-        System.out.println(Department.getById(1));
-        Employee jobby = Employee.findByName("Oleg Protasov");
-        System.out.println(jobby);
+        Employee tumshie = Employee.findByName("Oleg Protasov");
+        System.out.println(tumshie);
+        tumshie.getAllDetails();
+
+        employee1.getAllDetails();
     }
 
 

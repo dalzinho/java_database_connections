@@ -79,25 +79,4 @@ public class Department {
         ResultSet rs = SqlRunner.executeQuery(sql);
         return rs;
     }
-
-    public static Department getById(int searchId) {
-        String sql = String.format("SELECT * FROM departments WHERE id = %d;", searchId);
-        ResultSet rs = SqlRunner.executeQuery(sql);
-        Department result = null;
-        try {
-            while (rs.next()) {
-                String title = rs.getString("title");
-                result = new Department(title);
-
-            }
-
-
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + " : " + e.getMessage());
-            System.exit(0);
-        } finally {
-            SqlRunner.closeConnection();
-        }
-        return result;
-    }
 }
