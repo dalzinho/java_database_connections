@@ -67,6 +67,7 @@ public class SqlRunner {
             rs = stmt.executeQuery(sql);
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            e.printStackTrace();
             System.exit(0);
         }
 

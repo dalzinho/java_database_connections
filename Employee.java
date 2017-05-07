@@ -1,7 +1,5 @@
 import java.sql.ResultSet;
-
 import javax.xml.transform.Result;
-
 import db.SqlRunner;
 
 public class Employee {
@@ -40,6 +38,10 @@ public class Employee {
 
     public void setSalary(double salary) {
         this.salary = salary;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 
@@ -120,13 +122,16 @@ public class Employee {
     public static Employee findByName(String searchName) {
         String sql = String.format("SELECT * FROM employees WHERE name = '%s';", searchName);
         ResultSet rs = SqlRunner.executeQuery(sql);
+        Employee result = null;
         try {
             while (rs.next()) {
+                int id = rs.getInt("id");
                 String name = rs.getString("name");
                 int departmentId = rs.getInt("department_id");
                 double salary = rs.getDouble("salary");
                 int jobTitleId = rs.getInt("job_title_id");
-                return new Employee(name, departmentId, salary, jobTitleId);
+                result = new Employee(name, departmentId, salary, jobTitleId);
+                result.setId(id);
             }
 
         }
@@ -137,9 +142,8 @@ public class Employee {
             SqlRunner.closeConnection();
         }
 
-//     return result;
+     return result;
     }
-
 }
 
 
